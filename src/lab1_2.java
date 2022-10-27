@@ -27,7 +27,7 @@ public class lab1_2 {
 
         Find_key(keyArr,code);
         Find_SwitchCase(code);
-
+        if_Else_Elseif(code);
     }
 
 
@@ -40,7 +40,7 @@ public class lab1_2 {
                 key_num++;
             }
         }
-        System.out.println("key num is "+key_num);
+        
     }
 
     public static void Find_SwitchCase(String code){
@@ -74,7 +74,47 @@ public class lab1_2 {
         System.out.println();
     }
 
+    public static void if_Else_Elseif(String code) {
+        Pattern p = Pattern.compile("else\\s*if|else|if");
+        Matcher matcher=p.matcher(code);
+        Stack<String> a = new Stack();
+        while(matcher.find()) {
+            String code1=code.substring(matcher.start(),matcher.end());
+            a.push(code1);
+        }
+        Stack<String> a1 = new Stack<String>();
+        boolean flag = false;
+        int ifElseif_Num=0;
+        int ifElse_Num=0;
+        while (!a.isEmpty()) {
+            String temp = a.pop();
+            if (temp.equals("else")) {
+                a1.push(temp);
+            } else if (temp.equals("else if")) {
+                a1.push(temp);
 
+            } else {//we get if
+                //When the top of the res stack is the else if we need to loop out the else-if all the way to the else
+                while (a1.peek().equals("else if")) {
+                    a1.pop();
+                    // make a little notation that its from else if, not else
+                    flag = true;
+                }
+                if (a1.peek().equals("else")) {
+                    a1.pop();
+                }
+                //if it's elseif ,add to ifElseIfNum
+                if (flag) {
+                    ifElseif_Num++;
+                    flag = false;
+                } else {//or add to ifElseNum
+                    ifElse_Num++;
+                }
+            }
+        }
+        System.out.println("if-else num: " + ifElse_Num);
+        System.out.println("if-elseif-else num: " + ifElseif_Num);
+    }
 
 
 }
