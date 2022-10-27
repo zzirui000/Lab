@@ -26,8 +26,8 @@ public class lab1_2 {
         String []keyArr=keywords.split("、");
 
         Find_key(keyArr,code);
-        Find_SwitchCase(code);
         
+        if_Else_Elseif(code);
     }
 
 
@@ -43,36 +43,7 @@ public class lab1_2 {
         System.out.println("key num is "+key_num);
     }
 
-    public static void Find_SwitchCase(String code){
-        //check switch
-        Pattern p=Pattern.compile("switch");
-        Matcher matcher=p.matcher(code);
-        int switch_num = 0;
-        while(matcher.find()) {
-            switch_num++;
-        }
 
-        //check case
-        p=Pattern.compile("switch.*?}");
-        matcher=p.matcher(code);
-        List case_List=new ArrayList();
-        while(matcher.find()) {
-            String code1=matcher.toString();//get one switch section
-            Pattern p1=Pattern.compile("case");
-            Matcher temp_matcher=p1.matcher(code1);
-            int case_numb=0;
-            while(temp_matcher.find()) {
-                case_numb++;
-            }
-            case_List.add(case_numb);
-        }
-        System.out.println("switch num is "+switch_num);
-        System.out.print("case num are ");
-        for(int i=0;i<case_List.size();i++) {
-            System.out.print(case_List.get(i)+" ");
-        }
-        System.out.println();
-    }
 
     public static void if_Else_Elseif(String code) {
         Pattern p = Pattern.compile("else\\s*if|else|if");
