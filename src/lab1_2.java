@@ -26,8 +26,8 @@ public class lab1_2 {
         String []keyArr=keywords.split("、");
 
         Find_key(keyArr,code);
+        Find_SwitchCase(code);
         
-        if_Else_Elseif(code);
     }
 
 
